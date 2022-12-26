@@ -1,5 +1,15 @@
 import React from "react";
 const Main = () => {
+  const handleUpdate = () => {
+    fetch("api/movie", {
+      headers: {
+        Accept: "application / json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
+
   return (
     <>
       <h3>영화 랭킹</h3>
@@ -8,7 +18,7 @@ const Main = () => {
       <button>변경</button>
 
       <div>기준 : 20221225</div>
-      <button>갱신</button>
+      <button onClick={handleUpdate}>갱신</button>
     </>
   );
 };
