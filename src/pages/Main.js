@@ -21,6 +21,11 @@ const Main = () => {
       });
   };
 
+  const handleTableClick = (link) => {
+    console.log(link);
+    window.open("https://movie.naver.com" + link);
+  };
+
   return (
     <>
       <h3>영화 랭킹</h3>
@@ -32,10 +37,11 @@ const Main = () => {
       <button onClick={handleUpdate} disabled={loading}>
         갱신
       </button>
-      <table>
+      <table style={{ textAlign: "center" }}>
         <thead>
           <tr>
             <th>순위</th>
+            <th>포스터</th>
             <th>제목</th>
             <th>평점</th>
             <th>카테고리</th>
@@ -45,10 +51,17 @@ const Main = () => {
           {loading
             ? null
             : ranking?.map((item) => (
-                <tr key={item.rank}>
+                <tr
+                  key={item.rank}
+                  onClick={() => handleTableClick(item.link)}
+                  style={{ cursor: "pointer" }}
+                >
                   <th>{item.rank}</th>
+                  <td>
+                    <img src={item.poster} alt={item.title} />
+                  </td>
                   <td>{item.title}</td>
-                  <td>{item.score}</td>
+                  <td>{item.score.length ? item.score : "관람객 평점 없음"}</td>
                   <td>{item.category}</td>
                 </tr>
               ))}
