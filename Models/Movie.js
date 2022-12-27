@@ -9,6 +9,9 @@ const movieSchema = mongoose.Schema({
   rank: {
     type: Number,
   },
+  link: { type: String, maxLength: 200 },
+  score: { type: String, maxLength: 50 },
+  category: { type: String, maxLength: 200 },
 });
 
 const Movie = mongoose.model("Movie", movieSchema);

@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 const Main = () => {
+  const [ranking, setRanking] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const handleUpdate = () => {
+    setLoading(true);
     fetch("api/movie", {
       headers: {
         Accept: "application / json",
       },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        setRanking(data.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        alert("재시도해주세요");
+        setLoading(false);
+      });
   };
 
   return (
@@ -18,7 +29,32 @@ const Main = () => {
       <button>변경</button>
 
       <div>기준 : 20221225</div>
-      <button onClick={handleUpdate}>갱신</button>
+      <button onClick={handleUpdate} disabled={loading}>
+        갱신
+      </button>
+      <table>
+        <thead>
+          <tr>
+            <th>순위</th>
+            <th>제목</th>
+            <th>평점</th>
+            <th>카테고리</th>
+          </tr>
+        </thead>
+        <tbody>
+          {loading
+            ? null
+            : ranking?.map((item) => (
+                <tr key={item.rank}>
+                  <th>{item.rank}</th>
+                  <td>{item.title}</td>
+                  <td>{item.score}</td>
+                  <td>{item.category}</td>
+                </tr>
+              ))}
+        </tbody>
+      </table>
+      {loading ? <div>Loading...</div> : null}
     </>
   );
 };
