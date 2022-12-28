@@ -1,7 +1,6 @@
-const mongoose = require("mongoose"); // mongoose를 선언해주고,
+const mongoose = require("mongoose");
 
 const movieSchema = mongoose.Schema({
-  // userSchema라는 이름의 schema를 작성해준다.
   title: {
     type: String,
     maxLength: 50,
@@ -12,6 +11,7 @@ const movieSchema = mongoose.Schema({
   link: { type: String, maxLength: 200 },
   score: { type: String, maxLength: 50 },
   category: { type: String, maxLength: 200 },
+  poster: { type: String, maxLength: 200 },
 });
 
 const Movie = mongoose.model("Movie", movieSchema);
